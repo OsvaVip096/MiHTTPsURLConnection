@@ -9,7 +9,10 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.InputStream;
 
@@ -23,6 +26,7 @@ public class MainActivity extends FragmentActivity implements DownloadCallback {
     // downloads with consecutive button clicks.
     private boolean downloading = false;
 
+    Button btnVista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class MainActivity extends FragmentActivity implements DownloadCallback {
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
         ImageView imageView = findViewById(R.id.image_view);
         imageView.setImageBitmap(bitmap);
+
+        btnVista = findViewById(R.id.btnIniciar);
     }
 
     private void startDownload() {
@@ -47,7 +53,7 @@ public class MainActivity extends FragmentActivity implements DownloadCallback {
 
     @Override
     public void updateFromDownload(Object result) {
-
+        Toast.makeText(this, result.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -81,5 +87,9 @@ public class MainActivity extends FragmentActivity implements DownloadCallback {
         if (networkFragment != null) {
             networkFragment.cancelDownload();
         }
+    }
+
+    public void iniciarActividad(View view) {
+        startDownload();
     }
 }
